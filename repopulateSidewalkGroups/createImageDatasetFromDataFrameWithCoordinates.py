@@ -1,6 +1,3 @@
-import pandas as pd
-import requests
-from tqdm import tqdm
 import os
 
 from facade.getStreetViewImageMetadata import getStreetViewImageMetadata, StreetViewMetadataParams
@@ -12,7 +9,7 @@ def createImageDatasetFromDataFrameWithCoordinates(df, latitudeRowName: str, lon
     failedCoordinates = []
     metadataPanoIds = set()
     repeatedPanos = []
-    for index, row in tqdm(df.iterrows()):
+    for index, row in df.iterrows():
         failed = False
         folderName = f'''{folderToStoreImages}/_{index}_{0}'''
         os.mkdir(f"{folderName}")
