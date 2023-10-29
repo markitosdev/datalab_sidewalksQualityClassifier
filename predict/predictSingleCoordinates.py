@@ -7,6 +7,7 @@ import numpy as np
 
 from googleMapsApiKey import GoogleMapsApiKey
 from imageProcessors.utils.joinImagesInFolder import joinImagesInFolder
+import time
 
 
 def predictSingleCoordinates(latitude, longitude, singlePointName, modelPath, datasetPath):
@@ -24,7 +25,7 @@ def predictSingleCoordinates(latitude, longitude, singlePointName, modelPath, da
 
     predictions = model.predict(img_array)
     score = tf.nn.softmax(predictions[0])
-
+    shutil.rmtree("predictionImages")
     return ("This image most likely belongs to {} with a {:.2f} percent confidence."
         .format(class_names[np.argmax(score)], 100 * np.max(score))
     )
@@ -47,5 +48,5 @@ def createSingleFormattedImage(latitude, longitude, imagePathName):
         file.write(response.content)
         file.close()
     if not failed:
-        joinImagesInFolder(folderToStoreProcessedImage=imagePathName,index=index, score=0, imagesFolderName=folderName)
+        joinImagesInFolder(folderToStoreProcessedImage=imagePathName, index=index, score=0, imagesFolderName=folderName)
     return imagePathName

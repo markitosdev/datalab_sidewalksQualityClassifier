@@ -13,7 +13,6 @@ app = FastAPI()
 class RequestParams(BaseModel):
     latitude: float
     longitude: float
-    referenceName: str
 
 origins = ["*"]
 
@@ -33,4 +32,4 @@ def read_root():
 
 @app.post("/predictFromCoordinatesApi")
 def predictFromCoordinatesApi(params: RequestParams):
-    return predictSingleCoordinates(params.latitude, params.longitude, singlePointName=params.referenceName, modelPath='repopulated_dataset_based', datasetPath='dataset')
+    return predictSingleCoordinates(params.latitude, params.longitude, singlePointName="predictionImages", modelPath='repopulated_dataset_based', datasetPath='dataset')
